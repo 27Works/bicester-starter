@@ -36,3 +36,7 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 2. Navigate to the directory and run `npm run dev`
 3. Make your changes
 4. Connect to [Netlify](https://url.netlify.com/Bk4UicocL) manually (the `netlify.toml` file is the one you'll need to make sure stays intact to make sure the export is done and pointed to the right stuff)
+
+
+
+https://confident-ride-ceda85.netlify.app/
