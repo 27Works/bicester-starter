@@ -73,33 +73,33 @@ export default function Home () {
         <script src='/js/index.js' defer />
       </Head>
 
-      <div className='min-h-screen text-gray-900 font-sans antialiased'>
+      <div className='min-h-screen font-sans antialiased text-gray-900'>
         <div className='flex flex-col min-h-screen'>
-          <header className='bg-gray-800 text-white'>
-            {/* <div className='container max-w-6xl mx-auto py-12'> */}
+          <header className='text-white bg-gray-800'>
+            {/* <div className='container max-w-6xl py-12 mx-auto'> */}
             {/* <div className="text-3xl">{{ $page->title }}</div> */}
             {/* </div> */}
           </header>
 
-          {/* <main className='container h-full max-w-6xl mx-auto mb-auto py-12'> */}
+          {/* <main className='container h-full max-w-6xl py-12 mx-auto mb-auto'> */}
           {/* @yield('body') */}
           {/* </main> */}
 
-          <aside className='bg-gray-600 text-white'>
+          <aside className='text-white bg-gray-600'>
 
-            <div className='max-w-4xl md:flex mx-auto py-8 md:space-x-6'>
+            <div className='max-w-4xl py-8 mx-auto md:flex md:space-x-6'>
               <div className='w-full md:w-2/5'>
-                <h3 className='text-3xl md:text-4xl font-semibold'>
-                  Join the Newsletter
+                <h3 className='text-3xl font-semibold md:text-4xl'>
+                  Join the Newsletterrrr
                 </h3>
                 <p className='mt-4 text-lg'>
                   Get up to date information and other random tidbits from us. You know you want to. (There isn't really a newsletter.)
                 </p>
               </div>
-              <div className='w-full md:w-3/5 mt-8 md:mt-0 flex flex-col justify-center'>
+              <div className='flex flex-col justify-center w-full mt-8 md:w-3/5 md:mt-0'>
                 <form name='newsletter-subscribes' method='POST' action='/' data-netlify='true'>
                   { message !== ''
-                    ? (<div className='mb-4 px-2 py-1 bg-white border-4 border-white font-semibold text-gray-800'>
+                    ? (<div className='px-2 py-1 mb-4 font-semibold text-gray-800 bg-white border-4 border-white'>
                       <span>{message}</span>
                     </div>
                     )
@@ -108,7 +108,7 @@ export default function Home () {
                   <div className={`flex ${loading ? 'animate-pulse' : ''}`}>
                     <label className='sr-only'>Email:</label>
                     My name is
-                      <input onChange={(event) => setName(event.target.value)} className='flex-1 px-2 py-1 border-0 bg-white text-gray-800' type='text' name='name' placeholder='Your name' required />
+                      <input onChange={(event) => setName(event.target.value)} className='flex-1 px-2 py-1 text-gray-800 bg-white border-0' type='text' name='name' placeholder='Your name' required />
 
                     and I drive a 
                     <select onChange={(event) => setMake(event.target.value)}>
@@ -211,12 +211,12 @@ export default function Home () {
                       )
                       : null
                     }
-                    <input className='flex-1 px-2 py-1 border-0 bg-white text-gray-800' type='text' name='vehicle' placeholder='Your car' required />.
+                    <input className='flex-1 px-2 py-1 text-gray-800 bg-white border-0' type='text' name='vehicle' placeholder='Your car' required />.
 
                     My email address is
-                    <input onChange={(event) => setEmail(event.target.value)} className='flex-1 px-2 py-1 border-0 bg-white text-gray-800' type='email' name='email' placeholder='Your Email Address' required />.
+                    <input onChange={(event) => setEmail(event.target.value)} className='flex-1 px-2 py-1 text-gray-800 bg-white border-0' type='email' name='email' placeholder='Your Email Address' required />.
                     
-                    <button onClick={handleSubmit} className='px-6 py-1 bg-gray-800 text-white'>
+                    <button onClick={handleSubmit} className='px-6 py-1 text-white bg-gray-800'>
                       {
                         loading
                           ? <span>Loading...</span>
@@ -230,7 +230,7 @@ export default function Home () {
 
           </aside>
 
-          <footer className='bg-gray-800 py-10 text-white'>
+          <footer className='py-10 text-white bg-gray-800'>
             <div className='max-w-6xl mx-auto text-center'>
               {/* This project is <a className="underline" href="https://github.com/jcarouth/netlify-mailchimp-alpinejs/">open source on Github</a>. Created by <a className="underline" href="https://twitter.com/jcarouth">@jcarouth</a>. */}
             </div>
