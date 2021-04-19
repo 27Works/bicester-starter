@@ -2,7 +2,7 @@ const mailchimp = require('@mailchimp/mailchimp_marketing')
 const crypto = require('crypto')
 
 // Get the API creds out of the ENV config from Netlify
-const { MAILCHIMP_API_KEY, MAILCHIMP_SERVER_PREFIX } = process.env
+const { MAILCHIMP_API_KEY, MAILCHIMP_LIST, MAILCHIMP_SERVER_PREFIX } = process.env
 
 mailchimp.setConfig({
   apiKey: MAILCHIMP_API_KEY,
@@ -24,7 +24,9 @@ exports.handler = async (event, context) => {
     }
   }
 
-  const { email, listId } = JSON.parse(event.body)
+  const listId = MAILCHIMP_LIST
+
+  const { email, name, make, model, year } = JSON.parse(event.body)
 
   if (!email || !listId) {
     return {
@@ -45,7 +47,11 @@ exports.handler = async (event, context) => {
       subscriberHash,
       {
         email_address: email,
-        status_if_new: 'pending'
+        status_if_new: 'pending',
+        merge_fields: {
+          FNAME: name,
+          MAKE: make
+        }
       },
       { skipMergeValidation: true }
     )
