@@ -4,12 +4,16 @@ module.exports = {
     'pages/**/*.js'
   ],
   theme: {
-    extend: {}
-  },
-  variants: {
     extend: {
-      translate: ['group-hover']
+      colors: {
+        accent: '#5A989F'
+      }
+    },
+    fontFamily: {
+      sans: ['Kanit', '"Helvetica Nueue"', 'Helvetica', 'sans-serif']
     }
   },
-  plugins: []
+  plugins: [
+    require('@tailwindcss/forms')
+  ]
 }
