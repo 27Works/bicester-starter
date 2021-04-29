@@ -55,14 +55,21 @@ export default function Home () {
           setMessage('You are already subscribed. Thank you!')
         } else {
           setMessage('We could not subscribe you. Please try again.')
+          setLoading(false)
         }
       })
       .catch(err => {
         setMessage('We could not subscribe you. Please try again. ' + err)
+        setLoading(false)
       })
       .finally(() => {
         // self.reset()
       })
+  }
+
+  const handleCloseMessage = () => {
+    setMessage('')
+    setLoading(false)
   }
 
   return (
@@ -86,13 +93,16 @@ export default function Home () {
           {/* logo */}
           <img className='h-32 md:h-40' src='/images/logo-stack.svg' />
 
-          { message !== ''
-            ? (<div className='px-2 py-1 mb-4 font-semibold text-gray-800 bg-white border-4 border-white'>
-              <span>{message}</span>
+          {/* { message !== ''
+            ? (<div className='fixed top-0 left-0 z-20 flex flex-col items-center justify-center w-full h-full bg-black bg-opacity-90'>
+              <img className='h-12 md:h-14' src='/images/scramblers-logo.svg' />
+              <div className='px-3 py-3 mt-4 font-semibold text-gray-800 bg-white border-4 border-white rounded'>
+                <span>{message}</span>
+              </div>
             </div>
             )
             : null
-          }
+          } */}
 
           <div className='flex flex-col items-center w-full mt-10 space-y-5 md:space-y-5'>
             <div className='text-2xl font-medium text-white uppercase md:text-3xl border-gray-50'>
@@ -127,7 +137,7 @@ export default function Home () {
               <span onChange={(event) => setEmail(event.target.value)} id='email' className='inline-block input input--email' data-placeholder-email='me@mymail.com' contentEditable />
               {/* <input onChange={(event) => setEmail(event.target.value)} className=' w-96 input' type='email' name='email' required />. */}
               <div className='flex justify-center w-full pt-5'>
-                <button onClick={handleSubmit} className='px-4 py-1.5 text-lg font-medium text-white uppercase transition-colors bg-transparent border border-white rounded-sm hover:border-accent hover:bg-accent hover:text-white'>
+                <button disabled={loading ? true : false} onClick={handleSubmit} className='px-4 focus:outline-none py-1.5 text-lg font-medium text-white uppercase transition-colors bg-transparent border border-white rounded-sm hover:border-accent hover:bg-accent hover:text-white'>
                   {
                     loading
                       ? <span>Loading...</span>
@@ -135,6 +145,16 @@ export default function Home () {
                   }
                 </button>
               </div>
+              { message !== ''
+                ? (<div className='absolute flex items-center px-3 py-3 mt-4 space-x-5 text-sm font-semibold text-gray-800 bg-white border-4 border-white rounded shadow-lg bottom-10'>
+                    <span>{message}</span>
+                    <button onClick={handleCloseMessage} className='flex focus:outline-none hover:bg-white border-black hover:text-black border transition-colors items-center justify-center p-1.5 leading-none text-white bg-black rounded-full'>
+                      <svg className='w-2 h-2' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M1.5 1.5l12 12m-12 0l12-12' stroke='currentColor' /></svg>
+                    </button>
+                  </div>
+                )
+                : null
+              }
             </form>
           </div>
         </div>
