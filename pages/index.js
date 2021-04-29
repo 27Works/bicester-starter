@@ -13,39 +13,30 @@ export default function Home () {
   const [models, setModels] = useState('')
   const [year, setYear] = useState('')
 
-  useEffect(() => {
-    if (make !== '') {
-      fetchModels()
-    }
-  }, [make])
-
-  const fetchModels = () => {
-    const uri = `https://www.carmakesandmodels.co.uk/api/?apikey=${'qIgbBctA5lFOjzg2'}&make=${make}`
-
-    // fetch(uri, {
-    //   method: 'GET',
-    //   headers: { 'Content-Type': 'application/json' }
-    // })
-    //   .then(res => res.json())
-    //   .then(data => setModels(data))
-
-    setModels(['Fiesta', 'Galaxy'])
-  }
-
   const handleSubmit = event => {
     event.preventDefault()
 
     setLoading(true)
 
-    console.log({email, name, make, model, year})
+    const emailField = document.getElementById('email')
+    const nameField = document.getElementById('name')
+    const makeField = document.getElementById('make')
+    const modelField = document.getElementById('model')
+    const yearField = document.getElementById('year')
+    
 
     fetch('/.netlify/functions/subscribe', {
       method: 'POST',
-      body: JSON.stringify({email, name, make, model, year}),
+      body: JSON.stringify({
+        email: emailField.innerHTML,
+        name: nameField.innerHTML,
+        make: makeField.innerHTML,
+        model: modelField.innerHTML, 
+        year: yearField.innerHTML
+      }),
       headers: { 'Content-Type': 'application/json' }
     })
       .then(res => {
-        console.log('res :>> ', res)
         return res.json()
       })
       .then(data => {
