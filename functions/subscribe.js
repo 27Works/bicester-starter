@@ -50,7 +50,9 @@ exports.handler = async (event, context) => {
         status_if_new: 'pending',
         merge_fields: {
           FNAME: name,
-          MAKE: make
+          MAKE: make,
+          MODEL: model,
+          YEAR: year
         }
       },
       { skipMergeValidation: true }
