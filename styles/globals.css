@@ -14,11 +14,17 @@ body {
 }
 
 .input {
-  @apply text-2xl md:text-3xl mr-5 text-accent font-normal italic border-b px-0 py-0 overflow-hidden focus:ring-0 bg-transparent border-l-0 border-r-0 border-t-0 text-left focus:outline-none outline-none placeholder-opacity-25 placeholder-white border-white !important;
+  @apply text-2xl cursor-text md:text-3xl mr-3 text-accent font-normal italic border-b px-0 py-0 overflow-hidden focus:ring-0 bg-transparent border-l-0 border-r-0 border-t-0 text-left focus:outline-none outline-none placeholder-opacity-25 placeholder-white border-white !important;
   min-width: 200px;
 }
-.input.input--year, .input.input--make, .input.input--model {
-  min-width: 0px;
+.input.input--make {
+  min-width: 100px;
+}
+.input.input--model {
+  min-width: 40px;
+}
+.input.input--year {
+  min-width: 60px;
 }
 .input.input--year:empty:before {
   @apply text-white opacity-25;
