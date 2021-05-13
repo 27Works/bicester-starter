@@ -91,7 +91,7 @@ export default function Home () {
 
           <div className='flex flex-col items-center w-full mt-10 space-y-5 md:space-y-5'>
             <div className='text-2xl font-medium text-white uppercase md:text-3xl border-gray-50 cursor-default'>
-              Praesent commodo cursus magna,vel scelerisque nisl consectetur et. Lorem ipsum dolor sit amet.
+              A new automotive movement born from the success of Scramble events. Pre-register now to be the first to join.
             </div>
             {/* the form */}
             <form
