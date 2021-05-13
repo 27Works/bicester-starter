@@ -6,12 +6,6 @@ import React, { useEffect, useState } from 'react'
 export default function Home () {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-  const [make, setMake] = useState('')
-  const [model, setModel] = useState('')
-  const [models, setModels] = useState('')
-  const [year, setYear] = useState('')
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -28,7 +22,7 @@ export default function Home () {
     fetch('/.netlify/functions/subscribe', {
       method: 'POST',
       body: JSON.stringify({
-        email: emailField.innerHTML,
+        email: emailField.innerHTML.toLowerCase(),
         name: nameField.innerHTML,
         make: makeField.innerHTML,
         model: modelField.innerHTML, 
@@ -66,7 +60,7 @@ export default function Home () {
   return (
     <>
       <Head>
-        <title>Next.js Starter!</title>
+        <title>We Are Scramblers</title>
         <link rel='icon' href='/favicon.ico' />
         <script src='/js/index.js' defer />
       </Head>
@@ -96,7 +90,7 @@ export default function Home () {
           } */}
 
           <div className='flex flex-col items-center w-full mt-10 space-y-5 md:space-y-5'>
-            <div className='text-2xl font-medium text-white uppercase md:text-3xl border-gray-50'>
+            <div className='text-2xl font-medium text-white uppercase md:text-3xl border-gray-50 cursor-default'>
               Praesent commodo cursus magna,vel scelerisque nisl consectetur et. Lorem ipsum dolor sit amet.
             </div>
             {/* the form */}
@@ -107,38 +101,35 @@ export default function Home () {
               action='/'
               data-netlify='true'
             >
-
-              <label className='sr-only'>Email:</label>
-              <span className='flex-shrink-0 inline-block mr-5'>My name is</span>
+              <span className='flex-shrink-0 inline-block mr-5 cursor-default'>My name is</span>
 
               {/* name input */}
-              <span id='name' className='inline-block input' contentEditable />
+              <span id='name' className='inline-block input cursor-text' contentEditable />
 
-              <span className='flex-shrink-0 inline-block mr-5'>and I drive a</span>
+              <span className='flex-shrink-0 inline-block mr-5 cursor-default'>and I drive a</span>
 
               {/* year / make / model inputs */}
-              <span id='year' className='inline-block input input--year' data-placeholder-year='1973' contentEditable />
-              <span id='make' className='inline-block input input--make' data-placeholder-make='Porsche' contentEditable />
-              <span id='model' className='inline-block input input--model' data-placeholder-model='911' contentEditable />
+              <span id='year' className='inline-block input input--year cursor-text' data-placeholder-year='1973' contentEditable />
+              <span id='make' className='inline-block input input--make cursor-text' data-placeholder-make='Porsche' contentEditable />
+              <span id='model' className='inline-block input input--model cursor-text' data-placeholder-model='911' contentEditable />
               .
 
-              <span className='flex-shrink-0 inline-block mx-5'>My email address is</span>
+              <span className='flex-shrink-0 inline-block mx-5 cursor-default'>My email address is</span>
 
               {/* email input */}
-              <span onChange={(event) => setEmail(event.target.value)} id='email' className='inline-block input input--email' data-placeholder-email='me@mymail.com' contentEditable />
-              {/* <input onChange={(event) => setEmail(event.target.value)} className=' w-96 input' type='email' name='email' required />. */}
+              <span id='email' className='inline-block input input--email cursor-text' data-placeholder-email='me@mymail.com' contentEditable  />
               <div className='flex justify-center w-full pt-5'>
                 <button disabled={loading ? true : false} onClick={handleSubmit} className='px-4 focus:outline-none py-1.5 text-lg font-medium text-white uppercase transition-colors bg-transparent border border-white rounded-sm hover:border-accent hover:bg-accent hover:text-white'>
                   {
-                    loading
+                    loading && !message
                       ? <span>Loading...</span>
-                      : <span >Sign me up</span>
+                      : message ? <span>Done!</span> : <span>Sign me up</span>
                   }
                 </button>
               </div>
               { message !== ''
                 ? (<div className='absolute flex items-center px-3 py-3 mt-4 space-x-5 text-sm font-semibold text-gray-800 bg-white border-4 border-white rounded shadow-lg bottom-10'>
-                    <span>{message}</span>
+                    <span className='cursor-default'>{message}</span>
                     <button onClick={handleCloseMessage} className='flex focus:outline-none hover:bg-white border-black hover:text-black border transition-colors items-center justify-center p-1.5 leading-none text-white bg-black rounded-full'>
                       <svg className='w-2 h-2' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M1.5 1.5l12 12m-12 0l12-12' stroke='currentColor' /></svg>
                     </button>
