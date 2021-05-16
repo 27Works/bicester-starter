@@ -41,6 +41,8 @@ exports.handler = async (event, context) => {
 
   const subscriberHash = crypto.createHash('md5').update(email).digest('hex')
 
+  const [firstName, lastName] = name.split(' ')
+
   try {
     const response = await mailchimp.lists.setListMember(
       listId,
@@ -49,7 +51,8 @@ exports.handler = async (event, context) => {
         email_address: email,
         status_if_new: 'pending',
         merge_fields: {
-          FNAME: name,
+          FNAME: firstName,
+          LNAME: lastName,
           MAKE: make,
           MODEL: model,
           YEAR: year

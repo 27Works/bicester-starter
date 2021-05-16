@@ -17,16 +17,19 @@ export default function Home () {
     const makeField = document.getElementById('make')
     const modelField = document.getElementById('model')
     const yearField = document.getElementById('year')
-    
+
+    const getValue = field => {
+      return (field.textContent || field.innerText).trim()
+    } 
 
     fetch('/.netlify/functions/subscribe', {
       method: 'POST',
       body: JSON.stringify({
-        email: emailField.innerHTML.toLowerCase(),
-        name: nameField.innerHTML,
-        make: makeField.innerHTML,
-        model: modelField.innerHTML, 
-        year: yearField.innerHTML
+        email: getValue(emailField).toLowerCase(),
+        name: getValue(nameField),
+        make: getValue(makeField),
+        model: getValue(modelField),
+        year: getValue(yearField)
       }),
       headers: { 'Content-Type': 'application/json' }
     })
