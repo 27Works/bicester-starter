@@ -6,6 +6,49 @@ import React, { useEffect, useState } from 'react'
 export default function Home () {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
+  const [cta, setCta] = useState('Sign Me Up')
+  const [formData, setFormData] = useState({
+    name: ' ',
+    year: ' ',
+    make: ' ',
+    model: ' ',
+    email: ' '
+  })
+
+  const handleNameChange = event => {
+    setFormData(prevState => ({
+      ...prevState,
+      name: event.target.innerText
+    }))
+  }
+
+  const handleEmailChange = event => {
+    setFormData(prevState => ({
+      ...prevState,
+      email: event.target.innerText
+    }))
+  }
+
+  const handleYearChange = event => {
+    setFormData(prevState => ({
+      ...prevState,
+      year: event.target.innerText
+    }))
+  }
+
+  const handleMakeChange = event => {
+    setFormData(prevState => ({
+      ...prevState,
+      make: event.target.innerText
+    }))
+  }
+
+  const handleModelChange = event => {
+    setFormData(prevState => ({
+      ...prevState,
+      model: event.target.innerText
+    }))
+  }
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -20,7 +63,75 @@ export default function Home () {
 
     const getValue = field => {
       return (field.textContent || field.innerText).trim()
-    } 
+    }
+
+    let formValid = true
+    let fieldsEmpty = false
+
+    if (formData.name === ' ' || formData.name === '') {
+      // setFormData({ ...formData, name: '' })
+      setFormData(prevState => ({
+        ...prevState,
+        name: ''
+      }))
+      fieldsEmpty = true
+      formValid = false
+    }
+    if (formData.year === ' ' || formData.year === '') {
+      setFormData(prevState => ({
+        ...prevState,
+        year: ''
+      }))
+      fieldsEmpty = true
+      formValid = false
+    }
+    if (formData.make === ' ' || formData.make === '') {
+      setFormData(prevState => ({
+        ...prevState,
+        make: ''
+      }))
+      fieldsEmpty = true
+      formValid = false
+    }
+    if (formData.model === ' ' || formData.model === '') {
+      setFormData(prevState => ({
+        ...prevState,
+        model: ''
+      }))
+      fieldsEmpty = true
+      formValid = false
+    }
+    if (formData.email === ' ' || formData.email === '') {
+      setFormData(prevState => ({
+        ...prevState,
+        email: ''
+      }))
+      fieldsEmpty = true
+      formValid = false
+    }
+
+    const emailTest = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    const validEmail = emailTest.test(formData.email)
+
+    if (!validEmail) {
+      formValid = false
+    }
+
+    if (!formValid) {
+      if (!validEmail && fieldsEmpty) {
+        setMessage('Please complete all fields and enter a valid email address')
+      }
+      if (validEmail && fieldsEmpty) {
+        setMessage('All fields are required')
+      }
+      if (!validEmail && !fieldsEmpty) {
+        setMessage('Please enter a valid email')
+      }
+      setLoading(false)
+      return false
+    } else {
+      setCta('Submitting')
+    }
 
     fetch('/.netlify/functions/subscribe', {
       method: 'POST',
@@ -39,15 +150,18 @@ export default function Home () {
       .then(data => {
         if (data.status === 'pending') {
           setMessage('You have been subscribed. Please check your email to confirm.')
+          setCta('Done!')
         } else if (data.status === 'subscribed') {
           setMessage('You are already subscribed. Thank you!')
         } else {
           setMessage('We could not subscribe you. Please try again.')
+          setCta('Sign Me Up')
           setLoading(false)
         }
       })
       .catch(err => {
         setMessage('We could not subscribe you. Please try again. ' + err)
+        setCta('Sign Me Up')
         setLoading(false)
       })
       .finally(() => {
@@ -81,21 +195,13 @@ export default function Home () {
           {/* logo */}
           <img className='h-32 md:h-40' src='/images/logo-stack.svg' />
 
-          {/* { message !== ''
-            ? (<div className='fixed top-0 left-0 z-20 flex flex-col items-center justify-center w-full h-full bg-black bg-opacity-90'>
-              <img className='h-12 md:h-14' src='/images/scramblers-logo.svg' />
-              <div className='px-3 py-3 mt-4 font-semibold text-gray-800 bg-white border-4 border-white rounded'>
-                <span>{message}</span>
-              </div>
-            </div>
-            )
-            : null
-          } */}
-
           <div className='flex flex-col items-center w-full mt-10 space-y-5 md:space-y-5'>
-            <div className='text-2xl font-medium text-white uppercase md:text-3xl border-gray-50 cursor-default'>
+
+            {/* intro message */}
+            <div className='text-2xl font-medium text-white uppercase cursor-default md:text-3xl border-gray-50'>
               A new automotive movement born from the success of Scramble events. Pre-register now to be the first to join.
             </div>
+
             {/* the form */}
             <form
               className='flex flex-wrap items-end justify-center pb-10 space-y-1 text-2xl font-medium text-white md:space-y-2 md:text-3xl'
@@ -107,29 +213,32 @@ export default function Home () {
               <span className='flex-shrink-0 inline-block mr-5 cursor-default'>My name is</span>
 
               {/* name input */}
-              <span id='name' className='inline-block input cursor-text' contentEditable />
+              <span onInput={handleNameChange} id='name' className={`inline-block input cursor-text ${formData.name === '' ? '!border-red-500' : ''}`} contentEditable />
 
               <span className='flex-shrink-0 inline-block mr-5 cursor-default'>and I drive a</span>
 
               {/* year / make / model inputs */}
-              <span id='year' className='inline-block input input--year cursor-text' data-placeholder-year='1973' contentEditable />
-              <span id='make' className='inline-block input input--make cursor-text' data-placeholder-make='Porsche' contentEditable />
-              <span id='model' className='inline-block input input--model cursor-text' data-placeholder-model='911' contentEditable />
+              <span onInput={handleYearChange} id='year' className={`inline-block input input--year cursor-text ${formData.year === '' ? '!border-red-500' : ''}`} data-placeholder-year='1973' contentEditable />
+              <span onInput={handleMakeChange} id='make' className={`inline-block input input--make cursor-text ${formData.make === '' ? '!border-red-500' : ''}`} data-placeholder-make='Porsche' contentEditable />
+              <span onInput={handleModelChange} id='model' className={`inline-block input input--model cursor-text ${formData.model === '' ? '!border-red-500' : ''}`} data-placeholder-model='911' contentEditable />
               .
 
               <span className='flex-shrink-0 inline-block mx-5 cursor-default'>My email address is</span>
 
               {/* email input */}
-              <span id='email' className='inline-block input input--email cursor-text' data-placeholder-email='me@mymail.com' contentEditable  />
+              <span onInput={handleEmailChange} id='email' className={`inline-block input input--email cursor-text ${formData.email === '' ? '!border-red-500' : ''}`} data-placeholder-email='me@mymail.com' contentEditable  />
               <div className='flex justify-center w-full pt-5'>
                 <button disabled={loading ? true : false} onClick={handleSubmit} className='px-4 focus:outline-none py-1.5 text-lg font-medium text-white uppercase transition-colors bg-transparent border border-white rounded-sm hover:border-accent hover:bg-accent hover:text-white'>
-                  {
+                  {cta}
+                  {/* {
                     loading && !message
-                      ? <span>Loading...</span>
+                      ? <span>Submitting...</span>
                       : message ? <span>Done!</span> : <span>Sign me up</span>
-                  }
+                  } */}
                 </button>
               </div>
+
+              {/* feedback */}
               { message !== ''
                 ? (<div className='absolute flex items-center px-3 py-3 mt-4 space-x-5 text-sm font-semibold text-gray-800 bg-white border-4 border-white rounded shadow-lg bottom-10'>
                     <span className='cursor-default'>{message}</span>
@@ -140,6 +249,7 @@ export default function Home () {
                 )
                 : null
               }
+
             </form>
           </div>
         </div>
