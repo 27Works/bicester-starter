@@ -113,22 +113,37 @@ export default function Home () {
     const emailTest = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     const validEmail = emailTest.test(formData.email)
 
-    if (!validEmail) {
+    const yearTest = /^[0-9]+$/
+    let validYear = false
+    if (yearTest.test(formData.year) && formData.year.length === 4) {
+      validYear = true
+    }
+
+    if (!validEmail || !validYear) {
       formValid = false
     }
 
     if (!formValid) {
-      if (!validEmail && fieldsEmpty) {
-        setMessage('Please complete all fields and enter a valid email address')
+      if (fieldsEmpty) {
+        setMessage('Please complete all fields')
+        setLoading(false)
+        return false
       }
-      if (validEmail && fieldsEmpty) {
-        setMessage('All fields are required')
+      if (!fieldsEmpty && !validEmail && !validYear) {
+        setMessage('Please enter a valid year and email address')
+        setLoading(false)
+        return false
       }
-      if (!validEmail && !fieldsEmpty) {
-        setMessage('Please enter a valid email')
+      if (!fieldsEmpty && validEmail && !validYear) {
+        setMessage('Please enter a valid year')
+        setLoading(false)
+        return false
       }
-      setLoading(false)
-      return false
+      if (!fieldsEmpty && !validEmail && validYear) {
+        setMessage('Please enter a valid email address')
+        setLoading(false)
+        return false
+      }
     } else {
       setCta('Submitting')
     }
