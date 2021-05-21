@@ -144,6 +144,8 @@ export default function Home () {
         setLoading(false)
         return false
       }
+        
+      setCta('Sign Me Up')
     } else {
       setCta('Submitting')
     }
