@@ -221,7 +221,7 @@ export default function Home () {
 
             {/* the form */}
             <form
-              className='flex flex-wrap items-end justify-center pb-10 space-y-1 text-2xl font-medium text-white md:space-y-2 md:text-3xl'
+              className='flex flex-wrap items-end justify-center space-y-1 text-2xl font-medium text-white md:space-y-2 md:text-3xl'
               name='newsletter-subscribes'
               method='POST'
               action='/'
@@ -254,6 +254,10 @@ export default function Home () {
                   } */}
                 </button>
               </div>
+
+              <span className='block pt-3 pb-10 text-xs font-light opacity-60'>
+                By subscribing to our newsletter, you agree to the Scramblers <a className='underline' href='https://bicesterheritage.co.uk/privacy-policy/' rel='noreferrer' target='_blank'>Privacy Policy</a>
+              </span>
 
               {/* feedback */}
               { message !== ''
