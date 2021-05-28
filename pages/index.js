@@ -235,9 +235,9 @@ export default function Home () {
               <span className='flex-shrink-0 inline-block mr-5 cursor-default'>and I drive a</span>
 
               {/* year / make / model inputs */}
-              <span onInput={handleYearChange} id='year' className={`inline-block input input--year cursor-text ${formData.year === '' ? '!border-red-500' : ''}`} data-placeholder-year='1973' contentEditable />
-              <span onInput={handleMakeChange} id='make' className={`inline-block input input--make cursor-text ${formData.make === '' ? '!border-red-500' : ''}`} data-placeholder-make='Porsche' contentEditable />
-              <span onInput={handleModelChange} id='model' className={`inline-block input input--model cursor-text ${formData.model === '' ? '!border-red-500' : ''}`} data-placeholder-model='911' contentEditable />
+              <span onInput={handleYearChange} id='year' className={`inline-block input input--year cursor-text ${formData.year === '' ? '!border-red-500' : ''}`} data-placeholder-year='1987' contentEditable />
+              <span onInput={handleMakeChange} id='make' className={`inline-block input input--make cursor-text ${formData.make === '' ? '!border-red-500' : ''}`} data-placeholder-make='Peugeot' contentEditable />
+              <span onInput={handleModelChange} id='model' className={`inline-block input input--model cursor-text ${formData.model === '' ? '!border-red-500' : ''}`} data-placeholder-model='205 GTi' contentEditable />
               .
 
               <span className='flex-shrink-0 inline-block mx-5 cursor-default'>My email address is</span>
