@@ -216,7 +216,7 @@ export default function Home () {
 
             {/* intro message */}
             <div className='text-2xl font-medium text-white uppercase cursor-default md:text-3xl border-gray-50'>
-              A new automotive movement born from the success of Scramble events. Pre-register now to be the first to join.
+              A new automotive club born from the success of Scramble events. Pre-register now to be the first to join.
             </div>
 
             {/* the form */}
